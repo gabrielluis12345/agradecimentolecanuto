@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Presente 🎁</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+
+    /* ❄ neve */
+    .snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .snow span {
+        position: absolute;
+        top: -10px;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+
+    .container {
+        position: relative;
+        text-align: center;
+        z-index: 10;
+    }
+
+    /* caixa */
+    .gift-box {
+        width: 260px;
+        height: 260px;
+        position: relative;
+        margin-bottom: 20px;
+        cursor: pointer;
+        animation: bounce 1.5s infinite ease-in-out;
+        transition: transform 0.6s ease-out;
+        z-index: 5;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    .box {
+        width: 100%;
+        height: 100%;
+        background-image: url('caixa completa.png');
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+    }
+
+    .lid {
+        width: 100%;
+        height: 130px;
+        
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        transition: 0.7s ease-out;
+    }
+
+    /* botão */
+    .btn {
+        background: linear-gradient(90deg, #ff3c00, #ffbf00);
+        border: none;
+        padding: 18px 30px;
+        font-size: 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 0px 0px 4px #000;
+        box-shadow: 0px 0px 20px #ffbf00;
+        transition: .2s;
+    }
+
+    .btn:hover { transform: scale(1.05); }
+
+    /* glitter */
+    .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #fff, transparent);
+        border-radius: 50%;
+        opacity: 0;
+        animation: sparkle 1.2s forwards;
+        pointer-events: none;
+        z-index: 20;
+    }
+
+    @keyframes sparkle {
+        0% { opacity: 0; transform: scale(0.2); }
+        50% { opacity: 1; transform: scale(1.6); }
+        100% { opacity: 0; transform: scale(2.2); }
+    }
+
+    /* flash branco */
+    .flash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        opacity: 0;
+        z-index: 50;
+        pointer-events: none;
+        animation: flashAnim 0.6s forwards;
+    }
+
+    @keyframes flashAnim {
+        0% { opacity: 0; }
+        30% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="snow" id="snow"></div>
+
+<div class="container">
+
+    <div class="gift-box" id="giftBox">
+        <div class="lid" id="lid"></div>
+        <div class="box"></div>
+    </div>
+
+    <button class="btn" id="openBtn">🎁 Clique aqui para abrir seu presente 🎁</button>
+
+</div>
+
+<!-- som -->
+<audio id="openSound">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a8932e8be.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* neve */
+function createSnow() {
+    const snowContainer = document.getElementById('snow');
+    for (let i = 0; i < 50; i++) {
+        let s = document.createElement("span");
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.animationDuration = 5 + Math.random() * 5 + "s";
+        s.style.opacity = Math.random();
+        snowContainer.appendChild(s);
+    }
+}
+createSnow();
+
+/* abrir presente */
+const lid = document.getElementById("lid");
+const box = document.getElementById("giftBox");
+const sound = document.getElementById("openSound");
+
+document.getElementById("openBtn").onclick = () => openGift();
+
+function openGift() {
+
+    sound.play();
+
+    /* tampa abre */
+    lid.style.transform = "translateY(-140px) rotate(-22deg)";
+
+    /* caixa cresce */
+    box.style.animation = "none";
+    box.style.transform = "scale(2.4)";
+    
+    /* glitter */
+    createExplosion();
+
+    /* flash */
+    let flash = document.createElement("div");
+    flash.className = "flash";
+    document.body.appendChild(flash);
+
+    /* remove caixa imediatamente após flash */
+    setTimeout(() => {
+        box.style.opacity = "0";
+    }, 200);
+
+    /* redireciona */
+    setTimeout(() => {
+        window.location.href = "mensagem.html";
+    }, 1200);
+}
+
+/* glitter explosão */
+function createExplosion() {
+    for (let i = 0; i < 35; i++) {
+        let sp = document.createElement("div");
+        sp.className = "sparkle";
+        sp.style.left = (window.innerWidth/2 - 80 + Math.random()*160) + "px";
+        sp.style.top = (window.innerHeight/2 - 80 + Math.random()*160) + "px";
+
+        document.body.appendChild(sp);
+        setTimeout(() => sp.remove(), 1200);
+    }
+}
+
+</script>
+
+</body>
+</html>

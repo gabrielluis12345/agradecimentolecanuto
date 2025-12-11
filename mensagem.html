@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agradecimento - Leda Canuto</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 50px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* FOTO MAIOR */
+    .foto {
+      width: 380px; /* aumentei */
+      max-width: 100%;
+      filter: drop-shadow(0 0 18px rgba(255,255,255,0.3));
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 35px 30px;
+      border-radius: 20px;
+      max-width: 450px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.12);
+    }
+
+    /* LOGO REDONDA */
+    .logo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc947;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ffc947;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #eaeaea;
+    }
+
+    .assinatura {
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 20px;
+      color: #ffc947;
+    }
+
+    /* BOTÃO WHATSAPP */
+    .whatsapp-btn {
+      margin-top: 30px;
+      display: block;
+      background: #25D366;
+      color: white;
+      padding: 15px 22px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+      transition: .3s;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1db653;
+    }
+
+    /* NEVE */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 18px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(110vh); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🎵 Música de Natal -->
+  <audio autoplay loop>
+    <source src="musica.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="container">
+
+    <!-- FOTO AUMENTADA -->
+    
+
+    <!-- CARD -->
+    <div class="card">
+      <img src="logo.png" class="logo" alt="Logo Leda Canuto">
+
+      <h1>🎄 Mensagem Especial</h1>
+
+      <p>
+        Agradeço a confiança e a oportunidade de tê-lo(a) como aluno.<br><br>
+        Parabéns pelo seu esforço contínuo e dedicação.<br><br>
+        Que a paz e a energia do Natal estejam sempre com você.
+      </p>
+
+      <div class="assinatura">— Leda Canuto</div>
+
+      <a
+        class="whatsapp-btn"
+        href="https://wa.me/55SEUNUMERO?text=Olá%20Leda!%20Li%20a%20mensagem%20💛"
+        target="_blank"
+      >
+        Falar com Leda no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- NEVE -->
+  <script>
+    function createSnow() {
+      const snow = document.createElement("div");
+      snow.classList.add("snowflake");
+      snow.textContent = "❄";
+
+      snow.style.left = Math.random() * window.innerWidth + "px";
+      snow.style.fontSize = (Math.random() * 10 + 10) + "px";
+      snow.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      snow.style.opacity = Math.random();
+
+      document.body.appendChild(snow);
+
+      setTimeout(() => snow.remove(), 5000);
+    }
+
+    setInterval(createSnow, 120);
+  </script>
+
+</body>
+</html>
